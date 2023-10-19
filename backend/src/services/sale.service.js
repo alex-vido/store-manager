@@ -13,7 +13,17 @@ const AllSalesExists = async () => {
   return { status: 200, data };
 };
 
+const saleRegisterOk = async (data) => {
+  const saleId = await saleModel.registerSale();
+  data.map(async (sale) => {
+    const { productId, quantity } = sale;
+    await saleModel.registerSaleProduct(saleId, productId, quantity);
+  });
+  return { status: 201, data: { id: saleId, itemsSold: data } };
+};
+
 module.exports = {
   SaleExist,
   AllSalesExists,
+  saleRegisterOk,
 };  
