@@ -2,12 +2,15 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const connection = require('../../../src/models/connection');
 const { productModel } = require('../../../src/models');
-const { AllproductsFromDB, productFromDB } = require('../mocks/product.mock');
+const { productMock } = require('../mocks');
 
 describe('Testa o model de produtos', function () {
   afterEach(function () {
     sinon.restore();
   });
+
+  const { AllproductsFromDB, productFromDB } = productMock;
+
   it('Recupera produto por id com sucesso', async function () {
     sinon.stub(connection, 'execute').resolves([[productFromDB]]);
 

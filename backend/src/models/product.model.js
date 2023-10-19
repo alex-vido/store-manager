@@ -1,10 +1,4 @@
 const camelize = require('camelize');
-/* const {
-  getFormattedColumnNames,
-  getFormattedPlaceholders,
-  getFormattedUpdateColumns,
-} = require('../utils/FormattedQueryGenerator');
-*/
 
 const connection = require('./connection');
 
