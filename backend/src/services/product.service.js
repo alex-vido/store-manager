@@ -14,6 +14,12 @@ const productsExists = async () => {
 };
 
 const productRegisterOk = async (name) => {
+  if (!name) {
+    return { status: 400, data: { message: '"name" is required' } };
+  }
+  if (name.length < 5) {
+    return { status: 422, data: { message: '"name" length must be at least 5 characters long' } };
+  }
   const productData = await productModel.registerProduct(name);
   const data = await productModel.findById(productData.insertId);
   return { status: 201, data };

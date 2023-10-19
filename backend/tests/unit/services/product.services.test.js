@@ -9,7 +9,7 @@ describe('Testa o service de produtos', function () {
     sinon.restore();
   });
 
-  const { AllproductsFromDB, productFromDB } = productMock;
+  const { AllproductsFromDB, productFromDB, productAddWithoutNameError, productAddWithoutLengthError } = productMock;
   
   it('Lista todos os produtos', async function () {
     sinon.stub(productModel, 'findAll').resolves(AllproductsFromDB);
@@ -28,5 +28,23 @@ describe('Testa o service de produtos', function () {
 
     expect(product).to.be.an('object');
     expect(product.data).to.be.deep.equal(productFromDB);
+  });
+
+  it('Verifica se apresenta erro cadastrar sem name', async function () {
+    sinon.stub(productModel, 'registerProduct').resolves(productAddWithoutNameError);
+
+    const product = await productService.productRegisterOk('');
+
+    expect(product).to.be.an('object');
+    expect(product.data).to.be.deep.equal(productAddWithoutNameError);
+  });
+
+  it('Verifica se apresenta erro cadastrar com name menor que 5', async function () {
+    sinon.stub(productModel, 'registerProduct').resolves(productAddWithoutLengthError);
+
+    const product = await productService.productRegisterOk('as');
+
+    expect(product).to.be.an('object');
+    expect(product.data).to.be.deep.equal(productAddWithoutLengthError);
   });
 });

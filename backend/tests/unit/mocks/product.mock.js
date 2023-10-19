@@ -18,7 +18,21 @@ const productFromDB = {
   name: 'Martelo de Thor',
 };
 
+const productAddDB = {
+  id: 4,
+  name: 'productX',
+};
+
+const productAddWithoutNameError = { message: '"name" is required' };
+
+const productAddWithoutLengthError = { 
+  message: '"name" length must be at least 5 characters long',
+};
+
 module.exports = {
   AllproductsFromDB,
   productFromDB,
+  productAddDB,
+  productAddWithoutNameError,
+  productAddWithoutLengthError,
 };

@@ -9,7 +9,7 @@ describe('Testa o model de produtos', function () {
     sinon.restore();
   });
 
-  const { AllproductsFromDB, productFromDB } = productMock;
+  const { AllproductsFromDB, productFromDB, productAddDB } = productMock;
 
   it('Recupera produto por id com sucesso', async function () {
     sinon.stub(connection, 'execute').resolves([[productFromDB]]);
@@ -37,5 +37,14 @@ describe('Testa o model de produtos', function () {
 
     expect(product).to.be.an('array');
     expect(product).to.be.deep.equal(AllproductsFromDB);
+  });
+
+  it('Adiciona produto com sucesso', async function () {
+    sinon.stub(connection, 'execute').resolves([productAddDB]);
+
+    const product = await productModel.registerProduct('productX');
+
+    expect(product).to.be.an('object');
+    expect(product).to.be.deep.equal(productAddDB);
   });
 });
