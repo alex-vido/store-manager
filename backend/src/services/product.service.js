@@ -13,7 +13,14 @@ const productsExists = async () => {
   return { status: 200, data };
 };
 
+const productRegisterOk = async (name) => {
+  const productData = await productModel.registerProduct(name);
+  const data = await productModel.findById(productData.insertId);
+  return { status: 201, data };
+};
+
 module.exports = {
   productExists,
   productsExists,
+  productRegisterOk,
 };  
