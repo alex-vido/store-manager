@@ -1,8 +1,12 @@
-const { expect } = require('chai');
+const chai = require('chai');
 const sinon = require('sinon');
+const sinonChai = require('sinon-chai');
 const { saleModel } = require('../../../src/models');
 const { saleMock } = require('../mocks');
 const { saleService } = require('../../../src/services');
+
+chai.use(sinonChai);
+const { expect } = chai;
 
 describe('Testa o service de sales', function () {
   afterEach(function () {
@@ -14,7 +18,6 @@ describe('Testa o service de sales', function () {
   it('Lista todos os produtos', async function () {
     sinon.stub(saleModel, 'findAllSales').resolves(allSalesDB);
     const products = await saleService.AllSalesExists();
-    console.log(products);
     expect(products).to.be.an('object');
     expect(products.status).to.be.equal(200);
     expect(products.data).to.be.deep.equal(allSalesDB);
