@@ -25,7 +25,7 @@ route.post(
   validadeQuantityIsZeroOrLessThanZero,
   validateQuantityExists,
   validateHaveProductsWithThisId,
-  
+
   saleController.postSale,
 );
 

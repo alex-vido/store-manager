@@ -25,8 +25,17 @@ const registerProduct = async (name) => {
   return product;
 };
 
+const updateProduct = async (name, id) => {
+  const [product] = await connection.query(
+    'UPDATE products SET name = ? WHERE id = ?',
+    [name, id],
+  );
+  return product;
+};
+
 module.exports = {
   findAll,
   findById,
   registerProduct,
+  updateProduct,
 };

@@ -18,4 +18,9 @@ route.post(
   productController.postProduct,
 );
 
+route.put(
+  '/:id',
+  productController.updateProduct,
+);
+
 module.exports = route;
