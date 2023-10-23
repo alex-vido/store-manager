@@ -93,4 +93,29 @@ describe('Testa o service de produtos', function () {
     expect(updatedProduct.status).to.equal(200);
     expect(updatedProduct.productData).to.be.deep.equal(productUpdated);
   });
+  it('Verifica se apresenta erro ao deletar produto com id inexistente', async function () {
+    const id = 16;
+    sinon.stub(productModel, 'findById').withArgs(id).resolves(undefined);
+  
+    const deletedProduct = await productService.deleteProductOk(id);
+  
+    expect(deletedProduct).to.be.an('object');
+    expect(deletedProduct.status).to.equal(404);
+    expect(deletedProduct.data.message).to.equal('Product not found');
+  });
+  it('Verifica se deleta produto com sucesso', async function () {
+    const id = 1;
+    const productDeleted = {
+      id,
+      name: 'Martelo do Hulk',
+    };
+    sinon.stub(productModel, 'findById').withArgs(id).resolves(productDeleted);
+    sinon.stub(productModel, 'deleteProduct').withArgs(id).resolves(productDeleted);
+  
+    const deletedProduct = await productService.deleteProductOk(id);
+  
+    expect(deletedProduct).to.be.an('object');
+    expect(deletedProduct.status).to.equal(204);
+    expect(deletedProduct.data).to.be.deep.equal(productDeleted);
+  });
 });
